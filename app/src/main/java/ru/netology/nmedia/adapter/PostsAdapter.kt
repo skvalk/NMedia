@@ -60,6 +60,7 @@ internal class PostsAdapter(
         init {
             binding.like.setOnClickListener { listener.onButtonLikesClicked(post) }
             binding.share.setOnClickListener { listener.onButtonRepostsClicked(post) }
+            binding.menu.setOnClickListener { popupMenu.show() }
         }
 
         fun bind(post: Post) {
@@ -69,17 +70,13 @@ internal class PostsAdapter(
                 author.text = post.author
                 published.text = post.published
                 content.text = post.content
-                likeCount.text = getFormattedNumber(post.likes)
-                shareCount.text = getFormattedNumber(post.shared)
-                viewsCount.text = getFormattedNumber(post.views)
-                like.setImageResource(getButtonLikesIconResId(post.likedByMe))
-                menu.setOnClickListener { popupMenu.show() }
+                like.text = getFormattedNumber(post.likes)
+                share.text = getFormattedNumber(post.shared)
+                views.text = getFormattedNumber(post.views)
+                like.isChecked = post.likedByMe
+
             }
         }
-
-        @DrawableRes
-        private fun getButtonLikesIconResId(liked: Boolean) =
-            if (liked) R.drawable.ic_liked_24 else R.drawable.ic_like_24
 
         private fun getFormattedNumber(number: Int): String {
             return when (number) {
