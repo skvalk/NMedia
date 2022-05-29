@@ -1,13 +1,14 @@
 package ru.netology.nmedia.activity
 
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
+import ru.netology.nmedia.R
 import ru.netology.nmedia.adapter.PostsAdapter
 import ru.netology.nmedia.databinding.ActivityMainBinding
-import ru.netology.nmedia.util.hideKeyboard
-import ru.netology.nmedia.util.showKeyboard
 import ru.netology.nmedia.viewmodel.PostViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -26,33 +27,35 @@ class MainActivity : AppCompatActivity() {
             adapter.submitList(posts)
         }
 
-        binding.close.setOnClickListener {
-            viewModel.onButtonCancelClicked()
+        binding.fab.setOnClickListener {
+            viewModel.onAddClicked()
         }
 
-        binding.save.setOnClickListener {
-            with(binding.contentEdit) {
-                val content = text.toString()
-                viewModel.onButtonSaveClicked(content)
+        viewModel.sharePostContent.observe(this) { postContent ->
+            val intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, postContent)
+                type = "text/plain"
             }
+
+            val shareIntent = Intent.createChooser(
+                intent, getString(R.string.chooser_share_post)
+            )
+            startActivity(shareIntent)
         }
 
-        viewModel.currentPost.observe(this) { currentPost ->
-            with(binding) {
-                val content = currentPost?.content
-                contentEdit.setText(content)
-                previousText.hint = content
-                if (content != null) {
-                    contentEdit.requestFocus()
-                    contentEdit.showKeyboard()
-                    editGroup.visibility = View.VISIBLE
-                } else {
-                    contentEdit.clearFocus()
-                    contentEdit.hideKeyboard()
-                    editGroup.visibility = View.GONE
-                }
-            }
+        viewModel.playVideoURL.observe(this) { videoURL ->
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(videoURL))
+            startActivity(intent)
+        }
 
+        val postContentActivityLauncher =
+            registerForActivityResult(PostContentActivity.ResultContract) { postContent ->
+                postContent ?: return@registerForActivityResult
+                viewModel.onButtonSaveClicked(postContent)
+            }
+        viewModel.navigateToPostContentScreenEvent.observe(this) {
+            postContentActivityLauncher.launch(viewModel.currentPost.value?.content)
         }
     }
 }

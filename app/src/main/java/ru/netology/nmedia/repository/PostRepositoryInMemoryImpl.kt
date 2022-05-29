@@ -17,7 +17,8 @@ class PostRepositoryInMemoryImpl : PostRepository {
                 likes = (0..999).random(),
                 shared = (0..1200).random(),
                 views = (0..11960).random(),
-                likedByMe = false
+                likedByMe = false,
+                videoURL = "https://www.youtube.com/watch?v=WhWc3b3KhnY"
             ),
             Post(
                 id = nextId++,
@@ -27,7 +28,8 @@ class PostRepositoryInMemoryImpl : PostRepository {
                 likes = (0..999).random(),
                 shared = (0..1200).random(),
                 views = (0..11960).random(),
-                likedByMe = false
+                likedByMe = false,
+                videoURL = ""
             ),
             Post(
                 id = nextId++,
@@ -37,7 +39,8 @@ class PostRepositoryInMemoryImpl : PostRepository {
                 likes = (0..999).random(),
                 shared = (0..1200).random(),
                 views = (0..11960).random(),
-                likedByMe = false
+                likedByMe = false,
+                videoURL = "https://www.youtube.com/watch?v=WhWc3b3KhnY"
             ),
             Post(
                 id = nextId++,
@@ -47,7 +50,8 @@ class PostRepositoryInMemoryImpl : PostRepository {
                 likes = (0..999).random(),
                 shared = (0..1200).random(),
                 views = (0..11960).random(),
-                likedByMe = false
+                likedByMe = false,
+                videoURL = ""
             ),
             Post(
                 id = nextId++,
@@ -57,7 +61,8 @@ class PostRepositoryInMemoryImpl : PostRepository {
                 likes = (0..999).random(),
                 shared = (0..1200).random(),
                 views = (0..11960).random(),
-                likedByMe = false
+                likedByMe = false,
+                videoURL = ""
             ),
             Post(
                 id = nextId++,
@@ -67,7 +72,8 @@ class PostRepositoryInMemoryImpl : PostRepository {
                 likes = (0..999).random(),
                 shared = (0..1200).random(),
                 views = (0..11960).random(),
-                likedByMe = false
+                likedByMe = false,
+                videoURL = "https://www.youtube.com/watch?v=WhWc3b3KhnY"
             ),
             Post(
                 id = nextId++,
@@ -77,7 +83,8 @@ class PostRepositoryInMemoryImpl : PostRepository {
                 likes = (0..999).random(),
                 shared = (0..1200).random(),
                 views = (0..11960).random(),
-                likedByMe = false
+                likedByMe = false,
+                videoURL = ""
             ),
             Post(
                 id = nextId++,
@@ -87,7 +94,8 @@ class PostRepositoryInMemoryImpl : PostRepository {
                 likes = (0..999).random(),
                 shared = (0..1200).random(),
                 views = (0..11960).random(),
-                likedByMe = false
+                likedByMe = false,
+                videoURL = ""
             ),
             Post(
                 id = nextId++,
@@ -97,7 +105,8 @@ class PostRepositoryInMemoryImpl : PostRepository {
                 likes = (0..999).random(),
                 shared = (0..1200).random(),
                 views = (0..11960).random(),
-                likedByMe = false
+                likedByMe = false,
+                videoURL = "https://www.youtube.com/watch?v=WhWc3b3KhnY"
             ),
         )
     )

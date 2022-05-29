@@ -73,20 +73,46 @@
         android:lineSpacingMultiplier="1.5"
         android:paddingTop="@dimen/common_spacing"
         android:paddingBottom="@dimen/common_spacing"
-        app:layout_constraintBottom_toBottomOf="@id/footer"
+        app:layout_constraintBottom_toTopOf="@id/videoContent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/header"
         tools:text="@sample/posts.json/data/content" />
+
+
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/groupVideo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="videoContent, buttonPlayVideo" />
+
+    <ImageView
+        android:id="@+id/videoContent"
+        android:layout_width="match_parent"
+        android:layout_height="215dp"
+        app:layout_constraintBottom_toTopOf="@id/footer"
+        app:layout_constraintTop_toBottomOf="@id/content"
+        android:src="@drawable/preview"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/buttonPlayVideo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="@+id/videoContent"
+        app:layout_constraintStart_toStartOf="@+id/videoContent"
+        app:layout_constraintEnd_toEndOf="@+id/videoContent"
+        app:layout_constraintTop_toTopOf="@+id/videoContent"
+        app:layout_constraintVertical_bias="0.423"
+        app:srcCompat="@drawable/ic_play_24dp" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/footer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="content"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="281dp" />
+        app:constraint_referenced_ids="videoContent" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/like"
