@@ -150,6 +150,10 @@ class PostRepositoryInMemoryImpl : PostRepository {
         ) + posts
     }
 
+    override fun getById(postId: Long): Post? {
+        return posts.find { it.id == postId }
+    }
+
     private fun update(post: Post) {
         data.value = posts.map {
             if (it.id == post.id) post else it

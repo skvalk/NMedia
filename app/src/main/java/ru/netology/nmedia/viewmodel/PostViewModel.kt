@@ -17,10 +17,13 @@ class PostViewModel(
     val data by repository::data
 
     val sharePostContent = SingleLiveEvent<String>()
-    val navigateToPostContentScreenEvent = SingleLiveEvent<Unit>()
+    val navigateToEditContentScreenEvent = SingleLiveEvent<String>()
+    val navigateToViewContentScreenEvent = SingleLiveEvent<Long>()
     val playVideoURL = SingleLiveEvent<String>()
+    val removePost = SingleLiveEvent<Unit>()
 
-    val currentPost = MutableLiveData<Post?>(null)
+    private val currentPost = MutableLiveData<Post?>(null)
+
 
     fun onButtonSaveClicked(content: String) {
         if (content.isBlank()) return
@@ -37,27 +40,36 @@ class PostViewModel(
         currentPost.value = null
     }
 
+    fun getPostById(postId: Long) : Post? =
+        repository.getById(postId)
+
     override fun onButtonPlayVideoClicked(post: Post) {
         playVideoURL.value = post.videoURL
     }
 
-    override fun onButtonLikesClicked(post: Post) =
+    override fun onButtonLikesClicked(post: Post) {
         repository.like(post.id)
+    }
 
     override fun onButtonRepostsClicked(post: Post) {
         sharePostContent.value = post.content
     }
 
-    override fun onButtonRemoveClicked(post: Post) =
+    override fun onButtonRemoveClicked(post: Post) {
         repository.remove(post.id)
-
+        removePost.call()
+    }
     override fun onButtonEditClicked(post: Post) {
         currentPost.value = post
-        navigateToPostContentScreenEvent.call()
+        navigateToEditContentScreenEvent.value = post.content
     }
 
     fun onAddClicked() {
-        navigateToPostContentScreenEvent.call()
+        navigateToEditContentScreenEvent.call()
     }
 
+    override fun onContentClicked(post: Post) {
+        currentPost.value = post
+        navigateToViewContentScreenEvent.value = post.id
+    }
 }

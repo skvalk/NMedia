@@ -80,6 +80,7 @@ class FilePostRepository(
 
     override fun remove(postId: Long) {
         posts = posts.filter { it.id != postId }
+
     }
 
     override fun save(post: Post) {
@@ -96,6 +97,10 @@ class FilePostRepository(
         posts = posts.map {
             if (it.id == post.id) post else it
         }
+    }
+
+    override fun getById(postId: Long): Post? {
+        return posts.find { it.id == postId }
     }
 
     private companion object {

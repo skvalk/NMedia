@@ -1,17 +1,14 @@
 package ru.netology.nmedia.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.PopupMenu
-import androidx.annotation.DrawableRes
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import ru.netology.nmedia.R
 import ru.netology.nmedia.databinding.CardPostBinding
 import ru.netology.nmedia.dto.Post
-import kotlin.math.floor
+import ru.netology.nmedia.ui.bind
+import ru.netology.nmedia.ui.listen
 
 
 internal class PostsAdapter(
@@ -19,7 +16,7 @@ internal class PostsAdapter(
 ) : ListAdapter<Post, PostsAdapter.ViewHolder>(DiffCallback) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), interactionListener)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -39,76 +36,10 @@ internal class PostsAdapter(
 
         private lateinit var post: Post
 
-        private val popupMenu by lazy {
-            PopupMenu(itemView.context, binding.menu).apply {
-                inflate(R.menu.options_post)
-                setOnMenuItemClickListener { item ->
-                    when (item.itemId) {
-                        R.id.remove -> {
-                            listener.onButtonRemoveClicked(post)
-                            true
-                        }
-                        R.id.edit -> {
-                            listener.onButtonEditClicked(post)
-                            true
-                        }
-                        else -> false
-                    }
-                }
-            }
-        }
-
-        init {
-            binding.like.setOnClickListener { listener.onButtonLikesClicked(post) }
-            binding.share.setOnClickListener { listener.onButtonRepostsClicked(post) }
-            binding.buttonPlayVideo.setOnClickListener { listener.onButtonPlayVideoClicked(post) }
-            binding.menu.setOnClickListener { popupMenu.show() }
-        }
-
-        fun bind(post: Post) {
+        fun bind(post: Post, listener: PostInteractionListener) {
             this.post = post
-
-            with(binding) {
-                author.text = post.author
-                published.text = post.published
-                content.text = post.content
-                like.text = getFormattedNumber(post.likes)
-                share.text = getFormattedNumber(post.shared)
-                views.text = getFormattedNumber(post.views)
-                like.isChecked = post.likedByMe
-                groupVideo.visibility =
-                    if (post.videoURL.isBlank()) View.GONE else View.VISIBLE
-            }
-        }
-
-        private fun getFormattedNumber(number: Int): String {
-            return when (number) {
-                0 -> ""
-                in 1..999 -> String.format("%.0f", number.toFloat())
-                in 1_000..1_099 -> String.format(
-                    "%.0fK", floor(number.toDouble() / 100) / 10
-                )
-                in 1_100..9_999 -> String.format(
-                    "%.1fK",
-                    floor(number.toDouble() / 100) / 10
-                )
-                in 10_000..999_999 -> String.format(
-                    "%.0fK",
-                    floor(number.toDouble() / 100) / 10
-                )
-                in 1_000_000..1_099_000 -> String.format(
-                    "%.0fM",
-                    floor(number.toDouble() / 100_000) / 10
-                )
-                in 1_100_000..9_999_999 -> String.format(
-                    "%.1fM",
-                    floor(number.toDouble() / 100_000) / 10
-                )
-                else -> String.format(
-                    "%.0fM",
-                    floor(number.toDouble() / 100_000) / 10
-                )
-            }
+            binding.bind(post)
+            binding.listen(post, listener)
         }
 
     }
