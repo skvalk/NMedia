@@ -1,14 +1,21 @@
 <resources>
     <string name="app_name">NMedia</string>
     <string name="nmedia">NMedia!</string>
-    <string name="description_post_author_avatar">Post author avatar</string>
-    <string name="description_post_menu">Post menu</string>
-    <string name="menu_remove">Remove</string>
+    <string name="author_avatar">Author avatar</string>
+    <string name="button">Button</string>
+    <string name="like">Like</string>
+    <string name="share">Share</string>
+    <string name="visibility">Visibility</string>
+    <string name="remove">Remove</string>
+    <string name="post_text">Post Text</string>
     <string name="menu_edit">Edit</string>
     <string name="description_post_like">Like</string>
-    <string name="post_text">Enter text</string>
-    <string name="edit_message">Edit message</string>
+    <string name="edit_message">Edit Message</string>
     <string name="chooser_share_post">Share post</string>
-    <string name="description_post_save">Save</string>
     <string name="add_post">Add post</string>
+    <string name="description_post_save">Save</string>
+    <string name="play_video">Play video</string>
+    <string name="preview_video">preview video</string>
+    <string name="url">URL</string>
+    <string name="inputField">Enter the text of the post…</string>
 </resources>
